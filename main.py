@@ -11,8 +11,8 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 pygame.init()
 size = width, height = 1000, 700
 vetImagens = []
-numLinhas = 0
-numCol = 0
+numLinhas = 3
+numCol = 10
 bossFinal = Boss(width/2-120,60,239,182,pygame.image.load("res/_enemies/boss_1.png"))
 vetEnemies = [None]*numLinhas
 for x in range(0,numLinhas):
@@ -39,7 +39,7 @@ vetNums = [pygame.image.load("res/_ui/numeral1.png"),pygame.image.load("res/_ui/
 # Meteoro Imgs
 vetMeteoros = [pygame.image.load("res/_meteors/meteor_brown_1.png"),pygame.image.load("res/_meteors/meteor_grey_1.png")]
 vetObjMeteoros = []
-# Loja 
+# Loja
 def gameShop():
 	gameShop = True
 	def comprarItem(preco,img):
@@ -73,21 +73,18 @@ def gameShop():
 		posX = 178
 	elif player.getImgSrc() == "res/_player/Ovni.png":
 		imgLoad = pygame.image.load("res/_ui/blue_sliderDown.png")
-		posX = 420
-	elif player.getImgSrc() == "res/_player/Nave_branca.png":
-		imgLoad = pygame.image.load("res/_ui/blue_sliderDown.png")
-		posX = 540
+		posX = 425
+
 	# Skins disponiveis
 	player_blue = pygame.image.load("res/_player/player_1.png")
 	player_orange = pygame.image.load("res/_player/player_2.png")
 	player_green = pygame.image.load("res/_player/player_3.png")
 	ovni = pygame.image.load("res/_player/Ovni.png")
 	life = pygame.image.load("res/_power/Heart_symbol.png")
-	player_white = pygame.image.load("res/_player/Nave_branca.png")
 
 	# Logica do Shop
 	while gameShop:
-		# Fundo 
+		# Fundo
 		gameDisplay.fill((0,0,0))
 		gameDisplay.blit(bgImage,(0,0))
 		gameDisplay.blit(text,(10,10))
@@ -95,14 +92,12 @@ def gameShop():
 		# Comprar Skins
 		gameDisplay.blit(greyPanel,(50,80))
 		gameDisplay.blit(greyPanel,(170,80))
-		gameDisplay.blit(greyPanel,(290,80))
-		gameDisplay.blit(greyPanel, (410, 80))
-		gameDisplay.blit(greyPanel, (530, 80))
+		gameDisplay.blit(greyPanel,(295,80))
+		gameDisplay.blit(greyPanel, (420, 80))
 		gameDisplay.blit(player_orange,(58,100))
 		gameDisplay.blit(player_green,(178,100))
-		gameDisplay.blit(player_blue,(298,100))
-		gameDisplay.blit(ovni, (425, 110))
-		gameDisplay.blit(player_white, (540, 90))
+		gameDisplay.blit(player_blue,(305,100))
+		gameDisplay.blit(ovni, (435, 105))
 		gameDisplay.blit(imgLoad,(posX,posY))
 		# Painel para Comprar vida
 		if player.getLife() <= 3:
@@ -110,7 +105,7 @@ def gameShop():
 			gameDisplay.blit(life,(63,235))
 		# Exit icon
 		gameDisplay.blit(back,(width-110,height-110))
-		# Eventos 
+		# Eventos
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT: # FECHAR O GAME
 				sys.exit()
@@ -123,20 +118,17 @@ def gameShop():
 					gameMenu()
 					break
 				if x >= 50 and x <= 167 and y >= 95 and y <= 203:
-					posX = 50
+					posX = 60
 					comprarItem(20,"res/_player/player_2.png")
-				elif x >= 170 and x <= 286 and y >= 95 and y <= 203:
-					posX = 170
+				elif x >= 185 and x <= 286 and y >= 95 and y <= 203:
+					posX = 178
 					comprarItem(20,"res/_player/player_3.png")
-				elif x >= 290 and x <= 395 and y >= 95 and y <= 203:
-					posX = 290
+				elif x >= 308 and x <= 414 and y >= 95 and y <= 203:
+					posX = 305
 					comprarItem(20,"res/_player/player_1.png")
-				elif x >= 410 and x <= 527 and y >= 95 and y <= 203:
-					posX = 410
+				elif x >= 423 and x <= 527 and y >= 95 and y <= 203:
+					posX = 420
 					comprarItem(200,"res/_player/Ovni.png")
-				elif x >= 530 and x <= 600 and y >= 95 and y <= 203:
-					posX = 530
-					comprarItem(200,"res/_player/Nave_branca.png")
 				elif x >= 50 and x <= 167 and y >= 220 and y <= 338 and player.getLife() <= 3:
 					comprarItem(50,"res/_power/Heart_symbol.png")
 		# Desenhando Cursor
@@ -164,13 +156,13 @@ def draw():
 	for x in str(player.getScore()):
 		gameDisplay.blit(vetImagens[int(x)],(xInit+(contador*20),15))
 		contador += 1
-	# Player Img 
+	# Player Img
 	playerImg = pygame.image.load(player.getImgSrc())
 	gameDisplay.blit(playerImg,(player._x,player._y))
 	# Desenhando
 	t = 0
 	for v in vetEnemies:
-		t += v.count(None)	
+		t += v.count(None)
 	if t == numCol * numLinhas:
 		if bossFinal.getLife() > 0:
 			gameDisplay.blit(bossFinal.getImg(),(bossFinal.getX(),bossFinal.getY()))
@@ -186,7 +178,7 @@ def draw():
 					if y.getShot() != None:
 						gameDisplay.blit(shootImgEnemy,(y.getShot().getX(),y.getShot().getY()))
 					gameDisplay.blit(enemyImg,(y.getX(), y.getY()))
-	# Tiro 
+	# Tiro
 	if player.getShot() != None:
 		gameDisplay.blit(shootImg,(player.getShot().getX(), player.getShot().getY()))
 	# Meteoro
@@ -224,7 +216,7 @@ def gameWin():
 		for x in str(player.getScore()):
 			gameDisplay.blit(vetImagens[int(x)], (150 + (contador * 20), 500))
 			contador += 1
-		# Update 
+		# Update
 		pygame.display.update()
 		clock.tick(15)
 # Game Over
@@ -251,7 +243,7 @@ def gameOver():
 				sys.exit()
 		# Desenhando
 		gameDisplay.blit(cursorImg,(x-cursorImg.get_width()/2,y-cursorImg.get_height()/2))
-		# Update 
+		# Update
 		pygame.display.update()
 		clock.tick(15)
 # Game Loop
@@ -308,14 +300,14 @@ def gameLoop():
 		if not gamePause:
 			# Atualizando Tiros
 			for a in range(0,len(vetEnemies)):
-				for b in range(0,len(vetEnemies[0])): 
+				for b in range(0,len(vetEnemies[0])):
 					e = vetEnemies[a][b]
 					if e != None:
 						if e.getShot() != None:
 							e.getShot().setY(e.getShot().getY()+e.getShot().getAcceleration())
 							if e.getShot().getY() + e.getShot().getHeight() >= height:
 								e.setShot(None)
-			# Movimentação 
+			# Movimentação
 			vetEnemies2 = []
 			if player.getX() + player.getAcceleration() - 10 < 0 and player.getAcceleration() == -5:
 				player.setAcceleration(0)
@@ -327,7 +319,7 @@ def gameLoop():
 					player.setShot(None)
 					if player.getScore() >= 10:
 						player.setScore(player.getScore()-10)
-				else:		
+				else:
 					shootVar = player.getShot()
 					if shootVar != None:
 						shootVar.setY(shootVar.getY() - shootVar.getAcceleration())
@@ -339,7 +331,7 @@ def gameLoop():
 								if shootVar.getX() >= enemy.getX() and shootVar.getX() <= enemy.getX() + enemy.getWidth():
 									if shootVar.getY() >= enemy.getY() and shootVar.getY() <= enemy.getY() + enemy.getHeight():
 										vetEnemies[a][b] = None
-										player.setScore(player.getScore()+50)									
+										player.setScore(player.getScore()+50)
 										player.setShot(None)
 			# Tiro Inimigos
 			for a in range(0,len(vetEnemies)):
@@ -368,29 +360,30 @@ def gameLoop():
 				# Meteoro colide com tiro do player
 					if shootVar.getX() >= meteoro.getX() and shootVar.getX() <= meteoro.getX()+meteoro.getWidth()+10:
 						if shootVar.getY() <= meteoro.getY() + meteoro.getHeight() and shootVar.getY() >= meteoro.getY() + meteoro.getHeight()/2:
-							vetObjMeteoros.remove(meteoro) 
-							player.setShot(None)	
+							vetObjMeteoros.remove(meteoro)
+							player.setShot(None)
 							if player.getScore() >= 10:
 								player.setScore(player.getScore()-10)
 							# Tiro colide com boss
-				# Meteoro colide com tiro do inimigo
+				# Meteoro colide com inimigo
 				if meteoro in vetObjMeteoros:
 					for enemy in vetEnemies2:
 						shootVar = enemy.getShot()
 						if shootVar != None:
 							if shootVar.getX() >= meteoro.getX() and shootVar.getX() <= meteoro.getX()+meteoro.getWidth():
 								if shootVar.getY() + shootVar.getHeight() >= meteoro.getY() + meteoro.getHeight():
-									vetObjMeteoros.remove(meteoro)  
-									enemy.setShot(None)													
+									vetObjMeteoros.remove(meteoro)
+									enemy.setShot(None)
 				if (meteoro.getX() + meteoro.getWidth() < width):
 					meteoro.setX(meteoro.getX()+meteoro.getAcceleration())
 				else:
 					vetObjMeteoros.remove(meteoro)
-				# Tiro do Boss colide com o player
 				if len(vetEnemies2) == 0:
 					v = bossFinal.getTiros()
 					for myVar in bossFinal.getTiros():
 						myVar.setY(myVar.getY()+myVar.getAcceleration())
+						if myVar.getY() >= height:
+							v.remove(myVar)
 						if myVar.getX() >= player.getX() and myVar.getX() <= player.getX() + player.getHeight():
 							if myVar.getY() + 57 >= player.getY() and myVar.getY() <= player.getY() + player.getHeight() and contadorVidas <= 0:
 								player.setLife(player.getLife() - 1)
@@ -401,22 +394,15 @@ def gameLoop():
 									gameOver()
 								v.remove(myVar)
 								break
-					# Meteoro colide com tiro do boss
-					if meteoro in vetObjMeteoros:
-						v = bossFinal.getTiros()
-						for myVar in bossFinal.getTiros():
-							myVar.setY(myVar.getY() + myVar.getAcceleration())
-							if myVar.getX() >= meteoro.getX() and myVar.getX() <= meteoro.getX() + meteoro.getHeight():
-								if myVar.getY() >= meteoro.getY() and myVar.getY() <= meteoro.getY() + meteoro.getHeight():
-									vetObjMeteoros.remove(meteoro)
+						for met in vetObjMeteoros:
+							if myVar.getX() >= met.getX() and myVar.getX() <= met.getX() + met.getWidth():
+								if myVar.getY() + 57 >= met.getY() and myVar.getY() + 57 <= met.getY() + met.getHeight():
+									vetObjMeteoros.remove(met)
 									v.remove(myVar)
-									break
-
-
 					bossFinal.setTiros(v)
 					if bossFinal.getContadorTiros() == 0:
 						randomInt = [bossFinal.getX()+70,bossFinal.getX()+170]
-						t = Shoot(randomInt[random.randint(1,len(randomInt))-1], bossFinal.getY()+bossFinal.getHeight(), 9, 57, 3)
+						t = Shoot(randomInt[random.randint(1,len(randomInt))-1], bossFinal.getY()+bossFinal.getHeight(), 9, 57, 5)
 						v = bossFinal.getTiros()
 						v.append(t)
 						bossFinal.setTiros(v)
@@ -452,7 +438,7 @@ def gameLoop():
 												newCoins = player.getCoins() + (player.getScore()//100)*player.getLife()
 												player.setCoins(newCoins)
 												save_score(player)
-												# Musica fim 
+												# Musica fim
 												pygame.mixer.music.load("sounds/game-over.ogg")
 												pygame.mixer.music.play()
 												gameOver()
@@ -462,7 +448,7 @@ def gameLoop():
 											pygame.mixer.music.play()
 											contadorVidas = 20
 										x.setShot(None)
-				
+
 		draw()
 		if gamePause:
 			gameDisplay.blit(window,(width/2-298/2,height/2-342/2))
@@ -479,7 +465,7 @@ def gameLoop():
 		pygame.display.update()
 		clock.tick(fps) # Fps
 # Carregando Background
-bgImage = pygame.image.load("res/_backgrounds/blue.png") 
+bgImage = pygame.image.load("res/_backgrounds/blue.png")
 fps = 50
 # Instrucoes na Tela
 def gameInstrucoes():
@@ -551,11 +537,11 @@ def gameMenu():
 	gameOn = False
 	while not gameOn:
 		for event in pygame.event.get():
-			if event.type == pygame.QUIT: 
+			if event.type == pygame.QUIT:
 				save_score(player)
 				sys.exit()
 			if event.type == pygame.MOUSEBUTTONDOWN:
-				mouseX, mouseY = pygame.mouse.get_pos() 
+				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseX >= 390 and mouseX <= 609 and mouseY >= 330 and mouseY <= 365:
 					gameOn = True
 					gameLoop()
@@ -595,7 +581,7 @@ def gameMenu():
 		# Desenhando Cursor
 		x,y = pygame.mouse.get_pos()
 		gameDisplay.blit(cursorImg,(x-cursorImg.get_width()/2,y-cursorImg.get_height()/2))
-		# Update 
+		# Update
 		pygame.display.update()
 		clock.tick(15)
 # CONFIGS PADRÕES
@@ -604,7 +590,7 @@ cursorImg = pygame.image.load("res/_ui/cursor.png").convert_alpha()
 pygame.mouse.set_visible(False)
 pygame.display.set_caption('Space Shooters')
 clock = pygame.time.Clock() # Definindo atualizador do jogo
-# Configurações 
+# Configurações
 pygame.mixer.pre_init(frequency=22050, size=-16, channels=2)
 # Main
 if __name__ == "__main__":
