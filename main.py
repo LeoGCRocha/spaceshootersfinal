@@ -11,8 +11,8 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 pygame.init()
 size = width, height = 1000, 700
 vetImagens = []
-numLinhas = 0
-numCol = 0
+numLinhas = 3
+numCol = 10
 bossFinal = Boss(width/2-120,60,239,182,pygame.image.load("res/_enemies/boss_1.png"))
 vetEnemies = [None]*numLinhas
 for x in range(0,numLinhas):
@@ -73,10 +73,7 @@ def gameShop():
 		posX = 178
 	elif player.getImgSrc() == "res/_player/Ovni.png":
 		imgLoad = pygame.image.load("res/_ui/blue_sliderDown.png")
-		posX = 420
-	elif player.getImgSrc() == "res/_player/Nave_branca.png":
-		imgLoad = pygame.image.load("res/_ui/blue_sliderDown.png")
-		posX = 540
+		posX = 425
 
 	# Skins disponiveis
 	player_blue = pygame.image.load("res/_player/player_1.png")
@@ -84,7 +81,6 @@ def gameShop():
 	player_green = pygame.image.load("res/_player/player_3.png")
 	ovni = pygame.image.load("res/_player/Ovni.png")
 	life = pygame.image.load("res/_power/Heart_symbol.png")
-	player_white = pygame.image.load("res/_player/Nave_branca.png")
 
 	# Logica do Shop
 	while gameShop:
@@ -96,14 +92,12 @@ def gameShop():
 		# Comprar Skins
 		gameDisplay.blit(greyPanel,(50,80))
 		gameDisplay.blit(greyPanel,(170,80))
-		gameDisplay.blit(greyPanel,(290,80))
-		gameDisplay.blit(greyPanel, (410, 80))
-		gameDisplay.blit(greyPanel, (530, 80))
+		gameDisplay.blit(greyPanel,(295,80))
+		gameDisplay.blit(greyPanel, (420, 80))
 		gameDisplay.blit(player_orange,(58,100))
 		gameDisplay.blit(player_green,(178,100))
-		gameDisplay.blit(player_blue,(298,100))
-		gameDisplay.blit(ovni, (425, 110))
-		gameDisplay.blit(player_white, (540, 90))
+		gameDisplay.blit(player_blue,(305,100))
+		gameDisplay.blit(ovni, (435, 105))
 		gameDisplay.blit(imgLoad,(posX,posY))
 		# Painel para Comprar vida
 		if player.getLife() <= 3:
@@ -124,20 +118,17 @@ def gameShop():
 					gameMenu()
 					break
 				if x >= 50 and x <= 167 and y >= 95 and y <= 203:
-					posX = 50
+					posX = 60
 					comprarItem(20,"res/_player/player_2.png")
-				elif x >= 170 and x <= 286 and y >= 95 and y <= 203:
-					posX = 170
+				elif x >= 185 and x <= 286 and y >= 95 and y <= 203:
+					posX = 178
 					comprarItem(20,"res/_player/player_3.png")
-				elif x >= 290 and x <= 395 and y >= 95 and y <= 203:
-					posX = 290
+				elif x >= 308 and x <= 414 and y >= 95 and y <= 203:
+					posX = 305
 					comprarItem(20,"res/_player/player_1.png")
-				elif x >= 410 and x <= 527 and y >= 95 and y <= 203:
-					posX = 410
+				elif x >= 423 and x <= 527 and y >= 95 and y <= 203:
+					posX = 420
 					comprarItem(200,"res/_player/Ovni.png")
-				elif x >= 530 and x <= 600 and y >= 95 and y <= 203:
-					posX = 530
-					comprarItem(200,"res/_player/Nave_branca.png")
 				elif x >= 50 and x <= 167 and y >= 220 and y <= 338 and player.getLife() <= 3:
 					comprarItem(50,"res/_power/Heart_symbol.png")
 		# Desenhando Cursor
@@ -387,7 +378,6 @@ def gameLoop():
 					meteoro.setX(meteoro.getX()+meteoro.getAcceleration())
 				else:
 					vetObjMeteoros.remove(meteoro)
-				#Tiro do boss colide com player
 				if len(vetEnemies2) == 0:
 					v = bossFinal.getTiros()
 					for myVar in bossFinal.getTiros():
@@ -404,7 +394,6 @@ def gameLoop():
 									gameOver()
 								v.remove(myVar)
 								break
-					#Tiro do boss colide com o meteoro
 						for met in vetObjMeteoros:
 							if myVar.getX() >= met.getX() and myVar.getX() <= met.getX() + met.getWidth():
 								if myVar.getY() + 57 >= met.getY() and myVar.getY() + 57 <= met.getY() + met.getHeight():
