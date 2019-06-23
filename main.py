@@ -517,7 +517,7 @@ def gameInstrucoes():
 		text8 = myFont3.render("1.1) Caso o jogador queira mais vidas, ele poderá compra-las na loja com as moedas do jogo.", True, (255, 255, 255))
 		text9 = myFont3.render("2) O objetivo do jogo é conseguir matar as naves inimigas e o Boss sem perder todas as suas vidas.", True, (255, 255, 255))
 		text10 = myFont3.render("3) A cada 100 pontos no jogo o jogador recebe 1 moeda pra gastar na loja.", True, (255, 255, 255))
-		text11 = myFont3.render("3.1) Com as moedas o jogador poderá comprar skins para nave,tiro, além de powerups para o jogo.", True, (255, 255, 255))
+		text11 = myFont3.render("3.1) Com as moedas o jogador poderá comprar skins para nave.", True, (255, 255, 255))
 		text12 = myFont3.render("4) Caso o jogador perca todas as vidas antes do jogo acabar, uma tela de GAME OVER aparecerá.", True, (255, 255, 255))
 		text13 = myFont3.render("5) Boa sorte! e Bom jogo!", True, (255, 255, 255))
 		text14 = myFont2.render("Criado Por:", True, (255, 255, 255))
